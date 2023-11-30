@@ -72,10 +72,11 @@
                         </form>
                     </div>
                     <div class="card-footer">
-                        <div class="d-flex justify-content-center ">
-                            Don't have an account?<a href="#" class="text-warning text-decoration-none">Sign Up</a>
+                        <div class="d-flex justify-content-center " > 
+                            Don't have an account?
+                            <a href="#"  class="text-warning text-decoration-none">Sign Up</a><br>
                         </div>
-                        <div class="d-flex justify-content-center">
+                        <div class="d-flex justify-content-center"> 
                             <a href="#" class="text-warning text-decoration-none">Forgot your password?</a>
                         </div>
                     </div>

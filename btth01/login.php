@@ -52,24 +52,48 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form action="login.php" method="post">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="txtUser"><i class="fas fa-user"></i></span>
-                                <input type="text" class="form-control" placeholder="username" >
+                                <input type="text" class="form-control" placeholder="username" name="UserID">
                             </div>
 
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="txtPass"><i class="fas fa-key"></i></span>
-                                <input type="text" class="form-control" placeholder="password" >
+                                <input type="text" class="form-control" placeholder="password" name="Pass">
                             </div>
                             
                             <div class="row align-items-center remember">
                                 <input type="checkbox">Remember Me
                             </div>
                             <div class="form-group">
-                                <input type="submit" value="Login" class="btn float-end login_btn">
+                                <input type="submit" value="Login" class="btn float-end login_btn" name="login">
                             </div>
                         </form>
+                        <?php
+                        include('connection.php');
+                        if (isset($_POST['login'])) {
+                            $Username = $_POST['UserID'];
+                            $Pass = $_POST['Pass'];
+    
+                            $stmt = $conn->prepare('SELECT * FROM users WHERE UserID = :username AND Pass = :password');
+                            $stmt->execute(array('username' => $Username, 'password' => $Pass));
+                            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+                            if ($row) {
+                                $_SESSION["UserID"] = $row['UserID'];
+                                $_SESSION["Pass"] = $row['Pass'];
+                                if (isset($_SESSION["UserID"])) {
+                                    echo "<script> window.location.href = 'admin/category.php'; </script>";
+                                } 
+                            } else {
+    
+                                echo "<font color='red'>Invalid username or password </font>";
+    
+                            }
+                            
+                        }
+                        ?>
                     </div>
                     <div class="card-footer">
                         <div class="d-flex justify-content-center " > 

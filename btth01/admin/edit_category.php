@@ -1,3 +1,10 @@
+<?php
+    include 'connection.php';
+    $id = $_GET['id'];
+    $sql = "SELECT * FROM `theloai` WHERE ma_tloai= $id";
+    $result = $conn->query($sql);
+    $cats = $result->fetch();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,15 +54,16 @@
         <div class="row">
             <div class="col-sm">
                 <h3 class="text-center text-uppercase fw-bold">Sửa thông tin thể loại</h3>
-                <form action="process_add_category.php" method="post">
-                <div class="input-group mt-3 mb-3">
-                        <span class="input-group-text" id="lblCatId">Mã thể loại</span>
-                        <input type="text" class="form-control" name="txtCatId" readonly value="1">
+                <form action="process_edit_category.php" method="post">
+                    <input type="hidden" name="id" value="<?php echo $id?>" id="">
+                    <div class="input-group mt-3 mb-3">
+                            <span class="input-group-text" id="lblCatId">Mã thể loại</span>
+                            <input type="text" class="form-control" name="txtCatId" readonly value=<?php echo $cats["ma_tloai"]?>>
                     </div>
 
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="lblCatName">Tên thể loại</span>
-                        <input type="text" class="form-control" name="txtCatName" value = "Nhạc trữ tình">
+                        <input type="text" class="form-control" name="txtCatName" value =" <?php echo $cats["ten_tloai"];?>">
                     </div>
 
                     <div class="form-group  float-end ">

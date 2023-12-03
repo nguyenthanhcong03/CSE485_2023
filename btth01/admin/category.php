@@ -1,3 +1,12 @@
+<?php
+    include 'connection.php';
+    $sql = "SELECT * FROM `theloai` ORDER BY ma_tloai DESC;";
+    $result = $conn->prepare($sql);
+    $result->execute();
+    $cats = $result->fetchAll();
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +17,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/style_login.css">
+
 </head>
 <body>
     <header>
@@ -56,29 +66,21 @@
                             <th>Xóa</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Nhạc trữ tình</td>
-                            <td>
-                                <a href="edit_category.php?id=1"><i class="fa-solid fa-pen-to-square"></i></a>
-                            </td>
-                            <td>
-                                <a href=""><i class="fa-solid fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Nhạc cách mạng</td>
-                            <td>
-                                <a href="edit_category.php?id=2"><i class="fa-solid fa-pen-to-square"></i></a>
-                            </td>
-                            <td>
-                                <a href=""><i class="fa-solid fa-trash"></i></a>
-                            </td>
-                        </tr>
-                       
-                    </tbody>
+                <?php
+                    foreach($cats as $cat): ?>
+                        <tbody>
+                            <tr>
+                                <th scope="row"><?= $cat["ma_tloai"];?></th>
+                                <td><?= $cat["ten_tloai"];?></td>
+                                <td>
+                                    <a href="edit_category.php?id=<?= $cat["ma_tloai"]?>"><i class="fa-solid fa-pen-to-square"></i></a>
+                                </td>
+                                <td>
+                                    <a onclick="return confirm('Bạn chắc chắn muốn xóa không?');" href="process_del_cat.php?id=<?= $cat["ma_tloai"]?>"><i class="fa-solid fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                <?php endforeach; ?>    
                 </table>
             </div>
         </div>

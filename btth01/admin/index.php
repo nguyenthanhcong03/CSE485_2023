@@ -1,3 +1,26 @@
+<?php
+    include 'connection.php';
+    //Lay so nguoi dung
+    $getUserCount = $conn->query("SELECT COUNT(UserID) AS User_Count FROM `users`");
+    $rowUserCount = $getUserCount->fetch();
+    $userCount = $rowUserCount["User_Count"];
+
+    //Lay so the loai
+    $getCategoryCount = $conn->query("SELECT COUNT(DISTINCT(ten_tloai)) AS Category_Count FROM `theloai`");
+    $rowCategoryCount = $getCategoryCount->fetch();
+    $categoryCount = $rowCategoryCount["Category_Count"];
+
+    //Lay so tac gia
+    $getAuthorCount = $conn->query("SELECT COUNT(DISTINCT(ten_tgia)) AS Author_Count FROM `tacgia`");
+    $rowAuthorCount = $getAuthorCount->fetch();
+    $AuthorCount = $rowAuthorCount["Author_Count"];
+
+    //Lay so bai viet
+    $getPostCount = $conn->query("SELECT COUNT(ma_bviet) AS Post_Count FROM `baiviet`");
+    $rowPostCount = $getPostCount->fetch();
+    $PostCount = $rowPostCount["Post_Count"];
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,7 +76,7 @@
                         </h5>
 
                         <h5 class="h1 text-center">
-                            110
+                            <?php echo $userCount; ?>
                         </h5>
                     </div>
                 </div>
@@ -67,7 +90,7 @@
                         </h5>
 
                         <h5 class="h1 text-center">
-                            10
+                            <?php echo $categoryCount; ?>
                         </h5>
                     </div>
                 </div>
@@ -81,7 +104,7 @@
                         </h5>
 
                         <h5 class="h1 text-center">
-                            20
+                            <?php echo $AuthorCount; ?>
                         </h5>
                     </div>
                 </div>
@@ -95,7 +118,7 @@
                         </h5>
 
                         <h5 class="h1 text-center">
-                            110
+                            <?php echo $PostCount; ?>
                         </h5>
                     </div>
                 </div>

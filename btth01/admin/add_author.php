@@ -1,12 +1,3 @@
-<?php
-    include 'connection.php';
-    $sql = "SELECT * FROM `tacgia` ORDER BY ma_tgia DESC;";
-    $result = $conn->prepare($sql);
-    $result->execute();
-    $authors = $result->fetchAll();
-
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +8,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/style_login.css">
-
 </head>
 <body>
     <header>
@@ -56,36 +46,27 @@
         <!-- <h3 class="text-center text-uppercase mb-3 text-primary">CẢM NHẬN VỀ BÀI HÁT</h3> -->
         <div class="row">
             <div class="col-sm">
-                <a href="add_author.php" class="btn btn-success">Thêm mới</a>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Tên tác giả</th>
-                            <th scope="col">Hình ảnh</th>
-                            <th>Sửa</th>
-                            <th>Xóa</th>
-                        </tr>
-                    </thead>
-                <?php
-                    foreach($authors as $author): ?>
-                        <tbody>
-                            <tr>
-                                <th scope="row"><?= $author["ma_tgia"];?></th>
-                                <td><?= $author["ten_tgia"];?></td>
-                                <td>
-                                    <a href="author_pic.php?id=<?= $author["ma_tgia"]?>"><i class="fa-solid fa-eye"></i></i></a>
-                                </td>
-                                <td>
-                                    <a href="edit_author.php?id=<?= $author["ma_tgia"]?>"><i class="fa-solid fa-pen-to-square"></i></a>
-                                </td>
-                                <td>
-                                    <a onclick="return confirm('Bạn chắc chắn muốn xóa không?');" href="process_del_author.php?id=<?= $author["ma_tgia"]?>"><i class="fa-solid fa-trash"></i></a>
-                                </td>
-                            </tr>
-                        </tbody>
-                <?php endforeach; ?>    
-                </table>
+                <h3 class="text-center text-uppercase fw-bold">Thêm mới tác giả</h3>
+                <form action="process_add_author.php" method="post">
+                    <div class="input-group mt-3 mb-3" >
+                        <span class="input-group-text" id="lblAuID">Mã tác giả</span>
+                        <input type="text" class="form-control" name="txtAuID" >
+                    </div>
+                    <div class="input-group mt-3 mb-3" >
+                        <span class="input-group-text" id="lblAuName">Tên tác giả</span>
+                        <input type="text" class="form-control" name="txtAuName" >
+                    </div>
+
+                    <div class="input-group mt-3 mb-3" >
+                        <span class="input-group-text" id="lblAuPic">Hình tác giả</span>
+                        <input type="file" id="fileAuthorImage" name="fileAuthorImage" accept=".jpg , .jpeg, .png" required class="form-control" name="txtAuPic" >
+                    </div>
+
+                    <div class="form-group  float-end ">
+                        <input type="submit" value="Thêm" name ="upload"class="btn btn-success">
+                        <a href="author.php" class="btn btn-warning ">Quay lại</a>
+                    </div>
+                </form>
             </div>
         </div>
     </main>
